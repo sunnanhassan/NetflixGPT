@@ -2,7 +2,7 @@ import React from "react";
 import Body from "./components/Body";
 import "./index.css";
 import { Provider } from "react-redux";
-import appStore from "./utils/appstore.js";
+import appStore from "./utils/appStore.js";
 const App = () => {
   return (
     <Provider store={appStore}>
