@@ -13,7 +13,7 @@ import { BACKGROUND } from "../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [isSignInForm, setIsSignInForm] = useState(true); // fixed casing
+  const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
 
   const email = useRef(null);
@@ -21,7 +21,11 @@ const Login = () => {
   const name = useRef(null);
 
   const handleButtonClick = async () => {
-    const message = checkValidData(email.current.value, password.current.value);
+    const message = checkValidData(
+      email.current.value.trim(),
+      password.current.value.trim()
+    );
+
     if (message) {
       setErrorMsg(message);
       return;
@@ -32,12 +36,12 @@ const Login = () => {
         // Sign Up flow
         const userCredential = await createUserWithEmailAndPassword(
           auth,
-          email.current.value,
-          password.current.value
+          email.current.value.trim(),
+          password.current.value.trim()
         );
 
         await updateProfile(userCredential.user, {
-          displayName: name.current.value,
+          displayName: name.current.value.trim(),
           photoURL: "https://example.com/jane-q-user/profile.jpg",
         });
 
@@ -47,8 +51,8 @@ const Login = () => {
         // Sign In flow
         await signInWithEmailAndPassword(
           auth,
-          email.current.value,
-          password.current.value
+          email.current.value.trim(),
+          password.current.value.trim()
         );
       }
     } catch (error) {
@@ -82,7 +86,7 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full bg-gray-700"
+            className="p-4 my-4 w-full bg-gray-700 rounded"
           />
         )}
 
@@ -90,14 +94,14 @@ const Login = () => {
           ref={email}
           type="text"
           placeholder="Email Address"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-4 w-full bg-gray-700 rounded"
         />
 
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-4 w-full bg-gray-700 rounded"
         />
 
         {errorMsg && <p className="text-red-500 text-sm py-2">{errorMsg}</p>}
@@ -108,6 +112,15 @@ const Login = () => {
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
+
+        {/* 👇 Test credentials box only on Sign In */}
+        {isSignInForm && (
+          <div className="text-red-500 text-sm bg-black bg-opacity-40 p-3 rounded-md mb-4 border border-red-500">
+            <p className="font-semibold">Test Credentials:</p>
+            <p>Email: <span className="font-mono">testing@testing.com</span></p>
+            <p>Password: <span className="font-mono">testing123</span></p>
+          </div>
+        )}
 
         <p
           className="p-4 font-semibold cursor-pointer hover:underline"
