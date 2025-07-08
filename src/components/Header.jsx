@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, SUPPORTED_Languages, USERAVATAR } from "../utils/constants";
-import { toggleGPTSearchView } from "../utils/useGPTSlice";
+import { toggleGPTSearchView } from "../utils/usegptSlice";
 import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
