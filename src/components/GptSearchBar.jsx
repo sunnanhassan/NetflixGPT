@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import lang from "../utils/languageConstants";
 import { GAPI_KEY, API_OPTIONS } from "../utils/constants"; // Ensure these are correct
-import { addGptMovieResult } from "../utils/usegptSlice";
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
   const dispatch = useDispatch();
